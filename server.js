@@ -43,6 +43,11 @@ io.on('connection', (socket) => {
 
   // io.emit() will emit to EVERYONE
   //   io.emit();
+
+  // Here are the events to be fired off when client side emits to the sever
+  socket.on('chatMessage', (msg) => {
+    io.emit('message', msg);
+  });
 });
 
 // Local and or environment variable named port
