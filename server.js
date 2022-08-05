@@ -49,7 +49,7 @@ io.on('connection', (socket) => {
   });
 
   // io.emit() will emit to EVERYONE
-  //   io.emit();
+  // io.emit();
 
   // Here are the events to be fired off when client side emits to the sever
   socket.on('chatMessage', (msg) => {

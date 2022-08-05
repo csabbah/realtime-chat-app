@@ -15,6 +15,8 @@ chatForm.addEventListener('submit', (e) => {
 
   // Clear inputs
   chatForm.reset();
+  // Focus on the msg input right after
+  e.target.elements.msg.focus();
 });
 
 // We have access to io() because of this in chat.html:
@@ -27,14 +29,14 @@ chatForm.addEventListener('submit', (e) => {
 // });
 
 // Update dom element with message
-function outputMessage(message) {
+function outputMessage(object) {
   const div = document.createElement('div');
   div.classList.add('message');
 
   div.innerHTML = `
-   <p class="meta">Brad <span>9:12pm</span></p>
+   <p class="meta">${object.username}<span> ${object.time}</span></p>
     <p class="text">
-    ${message}
+    ${object.text}
     </p>
   `;
 
