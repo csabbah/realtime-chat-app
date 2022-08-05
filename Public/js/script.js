@@ -1,6 +1,16 @@
+const chatForm = document.getElementById('chat-form');
+const roomName = document.getElementById('room-name');
+const userList = document.getElementById('users');
+
 const socket = io();
 
-const chatForm = document.getElementById('chat-form');
+// Get username and room from URL
+// CDN link in chat.html
+const { username, room } = Qs.parse(location.search, {
+  ignoreQueryPrefix: true,
+});
+// Join chatroom
+socket.emit('joinRoom', { username, room });
 
 // submit and emit the 'chatMessage' event which takes the submitted message
 // And emits a new io.emit() event
@@ -50,4 +60,22 @@ socket.on('message', (message) => {
   // Every time we get a message, scroll down
   const chatMessages = document.querySelector('.chat-messages');
   chatMessages.scrollTop = chatMessages.scrollHeight;
+});
+
+// Add room name to DOM
+function outputRoomName(room) {
+  roomName.innerText = room;
+}
+
+function outputUsers(users) {
+  userList.innerHTML = `
+    ${users.map((user) => `<li>${user.username}</li>`).join('')}
+    `;
+  // Because we are mapping an array, we NEED to use the .join() method
+}
+
+// Get room and users
+socket.on('roomInfo', ({ room, users }) => {
+  outputRoomName(room);
+  outputUsers(users);
 });

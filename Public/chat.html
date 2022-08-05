@@ -18,36 +18,15 @@
         <h1><i class="fas fa-smile"></i> ChatCord</h1>
         <a href="index.html" class="btn">Leave Room</a>
       </header>
-      <main class="chat-main">
+      <maain class="chat-main">
         <div class="chat-sidebar">
           <h3><i class="fas fa-comments"></i> Room Name:</h3>
-          <h2 id="room-name">JavaScript</h2>
+          <h2 id="room-name"></h2>
           <h3><i class="fas fa-users"></i> Users</h3>
-          <ul id="users">
-            <li>Brad</li>
-            <li>John</li>
-            <li>Mary</li>
-            <li>Paul</li>
-            <li>Mike</li>
-          </ul>
+          <ul id="users"></ul>
         </div>
-        <div class="chat-messages">
-          <div class="message">
-            <p class="meta">Brad <span>9:12pm</span></p>
-            <p class="text">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi,
-              repudiandae.
-            </p>
-          </div>
-          <div class="message">
-            <p class="meta">Mary <span>9:15pm</span></p>
-            <p class="text">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi,
-              repudiandae.
-            </p>
-          </div>
-        </div>
-      </main>
+        <div class="chat-messages"></div>
+      </maain>
       <div class="chat-form-container">
         <form id="chat-form">
           <input
@@ -62,6 +41,12 @@
       </div>
     </div>
 
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.11.0/qs.min.js"
+      integrity="sha512-/l6vieC+YxaZywUhmqs++8uF9DeMvJE61ua5g+UK0TuHZ4TkTgB1Gm1n0NiA86uEOM9JJ6JUwyR0hboKO0fCng=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="js/script.js"></script>
   </body>

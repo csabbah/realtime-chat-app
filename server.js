@@ -3,12 +3,17 @@ const path = require('path');
 const app = express();
 
 const formatMessage = require('./utils/messages');
+const {
+  getCurrentUser,
+  userJoin,
+  userLeave,
+  getRoomUsers,
+} = require('./utils/users');
 
 const http = require('http');
 const server = http.createServer(app);
 
 const socketIo = require('socket.io');
-const { emit } = require('process');
 const io = socketIo(server);
 
 // Example route
@@ -21,39 +26,72 @@ app.use(express.static(path.join(__dirname, './public')));
 
 // Run when client connects
 io.on('connection', (socket) => {
-  // This of this as opening a door between server and client
-  // we can emit events
+  socket.on('joinRoom', ({ username, room }) => {
+    // We pass the id from the socket so it's unique to each user
+    const user = userJoin(socket.id, username, room);
 
-  // We log the message  in the backend
+    socket.join(user.room);
+
+    // Welcome current user
+    // emit() will emit to the single client connecting
+    // socket.emit('object', { welcome: 'Welcome to ChatCord' });
+    socket.emit('message', formatMessage(botName, `Welcome to ChatCord`));
+
+    // Broadcast when a user connects (GENERAL NOT ROOM SPECIFIC)
+    // broadcast.emit() will emit to everyone EXCEPT for the person connecting
+    // socket.broadcast.emit(
+    //   'message',
+    //   formatMessage(botName, 'A user has joined the chat')
+    // );
+
+    // Broadcast when a user connects (TO A SPECIFIC ROOM)
+    socket.broadcast
+      .to(user.room)
+      .emit(
+        'message',
+        formatMessage(botName, `A ${user.username} has joined the chat`)
+      );
+
+    // Send active users and room info
+    io.to(user.room).emit('roomInfo', {
+      room: user.room,
+      users: getRoomUsers(user.room),
+    });
+  });
+
+  // We log the message in the backend
   //   console.log('New WS connection...');
 
   // Here are the events to be fired off on the client side
-
   const botName = 'ChatCord Bot';
-
-  // Welcome current user
-  // emit() will emit to the single client connecting
-  // socket.emit('object', { welcome: 'Welcome to ChatCord' });
-  socket.emit('message', formatMessage(botName, 'Welcome to ChatCord'));
-
-  // Broadcast when a user connects
-  // broadcast.emit() will emit to everyone EXCEPT for the person connecting
-  socket.broadcast.emit(
-    'message',
-    formatMessage(botName, 'A user has joined the chat')
-  );
-
-  // Runs when client disconnects
-  socket.on('disconnected', () => {
-    io.emit('message', formatMessage(botName, 'A user has disconnected'));
-  });
 
   // io.emit() will emit to EVERYONE
   // io.emit();
 
   // Here are the events to be fired off when client side emits to the sever
   socket.on('chatMessage', (msg) => {
-    io.emit('message', formaMessatMessage('USER', msg));
+    const user = getCurrentUser(socket.id);
+
+    io.to(user.room).emit('message', formatMessage(user.username, msg));
+  });
+
+  // Runs when client disconnects
+  socket.on('disconnect', () => {
+    const user = userLeave(socket.id);
+
+    // If user exists
+    if (user) {
+      io.to(user.room).emit(
+        'message',
+        formatMessage(botName, `A ${user.username} has disconnected`)
+      );
+
+      // Send users and room info
+      io.to(user.room).emit('roomInfo', {
+        room: user.room,
+        users: getRoomUsers(user.room),
+      });
+    }
   });
 });
 
