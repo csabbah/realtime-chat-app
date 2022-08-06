@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+const PORT = process.env.PORT || 3001;
 
 const formatMessage = require('./utils/messages');
 const {
@@ -99,9 +100,6 @@ io.on('connection', (socket) => {
 });
 
 app.use(require('./app/controllers'));
-
-// Local and or environment variable named port
-const PORT = 3000 || process.env.PORT;
 
 // Run the server
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
