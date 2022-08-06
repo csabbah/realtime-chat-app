@@ -97,5 +97,9 @@ const PORT = 3000 || process.env.PORT;
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, './index.html'));
+  res.sendFile(path.join(__dirname, './public/index.html'));
+});
+
+app.get('/hi', function (req, res) {
+  res.send('hi');
 });
