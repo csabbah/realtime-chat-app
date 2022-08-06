@@ -73,10 +73,24 @@ io.on('connection', (socket) => {
   // io.emit();
 
   // Here are the events to be fired off when client side emits to the sever
-  socket.on('chatMessage', (msg) => {
+  socket.on('chatMessage', (msg, boolean) => {
     const user = getCurrentUser(socket.id);
-
-    io.to(user.room).emit('message', formatMessage(user.username, msg));
+    if (user) {
+      socket.broadcast.to(user.room).emit('userTyped', user.username);
+      io.to(user.room).emit('message', formatMessage(user.username, msg));
+    }
+  });
+  socket.on('userTyping', () => {
+    const user = getCurrentUser(socket.id);
+    if (user) {
+      socket.broadcast.to(user.room).emit('typing', user.username);
+    }
+  });
+  socket.on('typed', () => {
+    const user = getCurrentUser(socket.id);
+    if (user) {
+      socket.broadcast.to(user.room).emit('userTyped', user.username);
+    }
   });
 
   // Runs when client disconnects

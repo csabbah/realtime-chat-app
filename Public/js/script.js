@@ -1,7 +1,10 @@
 const chatForm = document.getElementById('chat-form');
 const roomName = document.getElementById('room-name');
 const userList = document.getElementById('users');
+const msgEl = document.getElementById('msg');
 
+// We have access to io() because of this in chat.html:
+// <script src="/socket.io/socket.io.js"></script>
 const socket = io();
 
 // Get username and room from URL
@@ -9,6 +12,7 @@ const socket = io();
 const { username, room } = Qs.parse(location.search, {
   ignoreQueryPrefix: true,
 });
+
 // Join chatroom
 socket.emit('joinRoom', { username, room });
 
@@ -19,25 +23,32 @@ chatForm.addEventListener('submit', (e) => {
 
   // get message text from DOM element
   const msg = e.target.elements.msg.value;
-  console.log(msg);
 
   // Emit message to server
-  socket.emit('chatMessage', msg);
+  socket.emit('chatMessage', msg, false);
 
   // Clear inputs
   chatForm.reset();
   // Focus on the msg input right after
   e.target.elements.msg.focus();
+  // Reset on keydown event
+  fired = false;
 });
 
-// We have access to io() because of this in chat.html:
-// <script src="/socket.io/socket.io.js"></script>
-
-// Whenever we get this 'message' event
-// These events are established in the server.js file
-// socket.on('object', (object) => {
-//   console.log(object);
-// });
+var fired = false;
+msgEl.addEventListener('keyup', (e) => {
+  // If msg input is empty, emit the typed which deletes the element (broadcasted  side)
+  if (e.target.value.length < 1) {
+    socket.emit('typed', '');
+    fired = false;
+  } else {
+    // else, emit the userTyping which displays the 'user is typing' el (ONCE)
+    if (!fired) {
+      socket.emit('userTyping', '');
+      fired = true;
+    }
+  }
+});
 
 // Update dom element with message
 function outputMessage(object) {
@@ -51,7 +62,7 @@ function outputMessage(object) {
     </p>
   `;
 
-  document.querySelector('.chat-messages').appendChild(div);
+  document.querySelector('.inner-message-container').appendChild(div);
 }
 
 // Message from server
@@ -61,6 +72,25 @@ socket.on('message', (message) => {
   // Every time we get a message, scroll down
   const chatMessages = document.querySelector('.chat-messages');
   chatMessages.scrollTop = chatMessages.scrollHeight;
+});
+
+// This deletes the broadcasted users 'user is typing' el
+socket.on('userTyped', (user) => {
+  if (document.getElementById(`${user}`)) {
+    document.getElementById(`${user}`).remove();
+  }
+});
+
+// This generates the 'user is typing' el
+socket.on('typing', (user) => {
+  const div = document.createElement('div');
+  div.setAttribute('id', user);
+
+  div.innerHTML = `
+    <p class="text">${user} is typing...</p>
+  `;
+
+  document.querySelector('.user-typing').appendChild(div);
 });
 
 // Add room name to DOM
