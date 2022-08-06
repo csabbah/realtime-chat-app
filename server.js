@@ -17,9 +17,9 @@ const socketIo = require('socket.io');
 const io = socketIo(server);
 
 // Example route
-// app.use('/test', (res, req) => {
-//   req.send('hi');
-// });
+app.use('/test', (res, req) => {
+  req.send('hi');
+});
 
 // Set static folder
 app.use(express.static(path.join(__dirname, './public')));
