@@ -68,3 +68,5 @@ If you have questions about this application or general inquiry, please reach ou
 ## License
 
 This project is covered under the MIT License.
+
+</br>![ChatCord](./Public/images/Preview.png 'ChatCord')</br>
