@@ -4,8 +4,8 @@
   "description": "Realtime chat app with Rooms",
   "main": "server.js",
   "scripts": {
-    "start": "node server",
-    "dev": "nodemon server"
+    "start": "node server -p $PORT",
+    "dev": "nodemon server -p $PORT"
   },
   "repository": {
     "type": "git",

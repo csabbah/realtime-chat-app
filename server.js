@@ -17,8 +17,6 @@ const socketIo = require('socket.io');
 const io = socketIo(server);
 
 // Set static folder
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Run when client connects
@@ -100,8 +98,4 @@ server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, './public/index.html'));
-});
-
-app.get('/hi', function (req, res) {
-  res.send('hi');
 });
