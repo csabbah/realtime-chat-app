@@ -16,6 +16,14 @@ const server = http.createServer(app);
 const socketIo = require('socket.io');
 const io = socketIo(server);
 
+const exphbs = require('express-handlebars');
+const hbs = exphbs.create();
+
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 // Set static folder
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -90,12 +98,10 @@ io.on('connection', (socket) => {
   });
 });
 
+app.use(require('./app/controllers'));
+
 // Local and or environment variable named port
 const PORT = 3000 || process.env.PORT;
 
 // Run the server
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, './public/index.html'));
-});
