@@ -17,8 +17,9 @@ const socketIo = require('socket.io');
 const io = socketIo(server);
 
 // Example route
-app.use('/test', (res, req) => {
-  req.send('hi');
+
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, './public/index.html'));
 });
 
 // Set static folder
@@ -97,6 +98,15 @@ io.on('connection', (socket) => {
 
 // Local and or environment variable named port
 const PORT = 3000 || process.env.PORT;
+app.set('port', PORT);
 
 // Run the server
-server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+app.get('/', function (request, response) {
+  var result = 'App is running';
+  response.send(result);
+});
+server.listen(app.get('port'), function () {
+  console.log('App is running, server is listening on port ', app.get('port'));
+});
