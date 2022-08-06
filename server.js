@@ -17,7 +17,9 @@ const socketIo = require('socket.io');
 const io = socketIo(server);
 
 // Set static folder
-app.use(express.static(path.join(__dirname, './public')));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Run when client connects
 io.on('connection', (socket) => {
