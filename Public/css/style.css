@@ -19,6 +19,7 @@
 body {
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
+  overflow: hidden;
 }
 
 ul {
@@ -215,5 +216,9 @@ a {
 
   .chat-sidebar {
     display: none;
+  }
+
+  .chat-messages {
+    max-height: 550px;
   }
 }
