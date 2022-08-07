@@ -58,13 +58,14 @@ a {
 }
 
 .chat-main {
-  height: 500px;
+  height: 100vh;
   display: grid;
   grid-template-columns: 1fr 3fr;
 }
 
 .chat-sidebar {
-  background: linear-gradient(var(--dark-color-a), transparent);
+  background: var(--dark-color-b);
+
   color: #fff;
   padding: 20px 20px 60px;
   overflow-y: scroll;
@@ -156,15 +157,17 @@ a {
 
 /* Join Page */
 .join-container {
-  max-width: 500px;
-  margin: 80px auto;
   color: #fff;
+  background: var(--dark-color-b);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .join-header {
   text-align: center;
   padding: 20px;
-  background: var(--dark-color-a);
 }
 
 .join-main {
@@ -202,6 +205,7 @@ a {
 .join-main .btn {
   width: 100%;
   padding: 10px 0;
+  margin-top: 20px;
 }
 
 @media (max-width: 700px) {
