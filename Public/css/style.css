@@ -49,7 +49,7 @@ a {
 .chat-header {
   background: var(--dark-color-a);
   color: #fff;
-  position: relative;
+  position: fixed;
   top: 0;
   width: 100vw;
   padding: 15px;
@@ -66,7 +66,7 @@ a {
 
 .chat-sidebar {
   background: var(--dark-color-b);
-
+  margin-top: 65px;
   color: #fff;
   padding: 20px 20px 60px;
   overflow-y: scroll;
@@ -92,8 +92,8 @@ a {
 }
 
 .chat-messages {
-  padding: 30px;
-  max-height: 500px;
+  padding: 90px 30px;
+  max-height: 100vh;
   overflow-y: scroll;
 }
 
@@ -216,9 +216,5 @@ a {
 
   .chat-sidebar {
     display: none;
-  }
-
-  .chat-messages {
-    max-height: 550px;
   }
 }
