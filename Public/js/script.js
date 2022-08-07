@@ -25,7 +25,7 @@ chatForm.addEventListener('submit', (e) => {
   const msg = e.target.elements.msg.value;
 
   // Emit message to server
-  socket.emit('chatMessage', msg, false);
+  socket.emit('chatMessage', msg);
 
   // Clear inputs
   chatForm.reset();
@@ -49,32 +49,6 @@ msgEl.addEventListener('keyup', (e) => {
     }
   }
 });
-
-// Update Array and the Element
-// const index = userArr.indexOf(user);
-// if (index > -1) {
-//   return userArr.splice(index, 1);
-// }
-
-// document.getElementById('array').innerHTML = `
-//   <p class="text">${userArr
-//     .map((user) => {
-//       return `${user} ${
-//         // Only include 'and' if array is larger than 2
-//         userArr.length > 1
-//           ? userArr.indexOf(user) == userArr.length - 2
-//             ? 'and '
-//             : ''
-//           : ''
-//       }`;
-//     })
-//     .join('')} ${userArr.length > 1 ? 'are' : 'is'} typing...</p>
-//   `;
-
-// const index = userArr.indexOf(user);
-// if (index > -1) {
-//   return userArr.splice(index, 1);
-// }
 
 // Update dom element with message
 function outputMessage(object) {
@@ -102,42 +76,43 @@ socket.on('message', (message) => {
 
 // This deletes the broadcasted users 'user is typing' el
 var userArr = [];
+var runOnce = false;
+
 socket.on('userTyped', (user) => {
   let index = userArr.indexOf(user);
   userArr.splice(index, 1)[0];
 
+  // If the length of the array is 0, that means no one is typing so clear the element
   if (userArr.length < 1) {
     document.querySelector('.user-typing').innerHTML = '';
   } else {
+    // Otherwise, update the element according to the arrays current state of data
     document.querySelector('.user-typing').innerHTML = `
-        <p class="text">${userArr
-          .map((user) => {
-            return `${user} ${
-              // Only include 'and' if array is larger than 2
-              userArr.length > 1
-                ? userArr.indexOf(user) == userArr.length - 2
-                  ? 'and '
+          <p class="text">${userArr
+            .map((user) => {
+              return `${user} ${
+                // Only include 'and' if array is larger than 2
+                userArr.length > 1
+                  ? userArr.indexOf(user) == userArr.length - 2
+                    ? 'and '
+                    : ''
                   : ''
-                : ''
-            }`;
-          })
-          .join('')} ${userArr.length > 1 ? 'are' : 'is'} typing...</p>
-      `;
+              }`;
+            })
+            .join('')} ${userArr.length > 1 ? 'are' : 'is'} typing...</p>
+        `;
   }
 });
 
 // This generates the 'user is typing' el
 socket.on('typing', (user) => {
-  // const div = document.createElement('div');
-
   // Only include unique users to the array
   if (userArr.includes(user)) {
   } else {
     userArr.push(user);
   }
 
-  // div.setAttribute('id', 'array');
-
+  // Dynamically update the DOM as new users are added to the array
   document.querySelector('.user-typing').innerHTML = `
     <p class="text">${userArr
       .map((user) => {
@@ -152,8 +127,6 @@ socket.on('typing', (user) => {
       })
       .join('')} ${userArr.length > 1 ? 'are' : 'is'} typing...</p>
   `;
-
-  // document.querySelector('.user-typing').appendChild(div);
 });
 
 // Add room name to DOM

@@ -78,8 +78,6 @@ io.on('connection', (socket) => {
     if (user) {
       // When a user sends a message, capture that message, their user name and...
       io.to(user.room).emit('message', formatMessage(user.username, msg));
-      // Also remove the 'is typing' element
-      socket.broadcast.to(user.room).emit('userTyped', user.username);
     }
   });
 
