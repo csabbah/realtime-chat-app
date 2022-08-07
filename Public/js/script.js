@@ -39,12 +39,12 @@ var fired = false;
 msgEl.addEventListener('keyup', (e) => {
   // If msg input is empty, emit the typed which deletes the element (broadcasted  side)
   if (e.target.value.length < 1) {
-    socket.emit('typed', '');
+    socket.emit('userTyping', false);
     fired = false;
   } else {
     // else, emit the userTyping which displays the 'user is typing' el (ONCE)
     if (!fired) {
-      socket.emit('userTyping', '');
+      socket.emit('userTyping', true);
       fired = true;
     }
   }
@@ -83,6 +83,9 @@ socket.on('userTyped', (user) => {
 
 // This generates the 'user is typing' el
 socket.on('typing', (user) => {
+  // const userArr = [];
+  // userArr.push(user);
+  // console.log(userArr);
   const div = document.createElement('div');
   div.setAttribute('id', user);
 
