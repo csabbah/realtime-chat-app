@@ -50,6 +50,32 @@ msgEl.addEventListener('keyup', (e) => {
   }
 });
 
+// Update Array and the Element
+// const index = userArr.indexOf(user);
+// if (index > -1) {
+//   return userArr.splice(index, 1);
+// }
+
+// document.getElementById('array').innerHTML = `
+//   <p class="text">${userArr
+//     .map((user) => {
+//       return `${user} ${
+//         // Only include 'and' if array is larger than 2
+//         userArr.length > 1
+//           ? userArr.indexOf(user) == userArr.length - 2
+//             ? 'and '
+//             : ''
+//           : ''
+//       }`;
+//     })
+//     .join('')} ${userArr.length > 1 ? 'are' : 'is'} typing...</p>
+//   `;
+
+// const index = userArr.indexOf(user);
+// if (index > -1) {
+//   return userArr.splice(index, 1);
+// }
+
 // Update dom element with message
 function outputMessage(object) {
   const div = document.createElement('div');
@@ -75,25 +101,59 @@ socket.on('message', (message) => {
 });
 
 // This deletes the broadcasted users 'user is typing' el
+var userArr = [];
 socket.on('userTyped', (user) => {
-  if (document.getElementById(`${user}`)) {
-    document.getElementById(`${user}`).remove();
+  let index = userArr.indexOf(user);
+  userArr.splice(index, 1)[0];
+
+  if (userArr.length < 1) {
+    document.querySelector('.user-typing').innerHTML = '';
+  } else {
+    document.querySelector('.user-typing').innerHTML = `
+        <p class="text">${userArr
+          .map((user) => {
+            return `${user} ${
+              // Only include 'and' if array is larger than 2
+              userArr.length > 1
+                ? userArr.indexOf(user) == userArr.length - 2
+                  ? 'and '
+                  : ''
+                : ''
+            }`;
+          })
+          .join('')} ${userArr.length > 1 ? 'are' : 'is'} typing...</p>
+      `;
   }
 });
 
 // This generates the 'user is typing' el
 socket.on('typing', (user) => {
-  // const userArr = [];
-  // userArr.push(user);
-  // console.log(userArr);
-  const div = document.createElement('div');
-  div.setAttribute('id', user);
+  // const div = document.createElement('div');
 
-  div.innerHTML = `
-    <p class="text">${user} is typing...</p>
+  // Only include unique users to the array
+  if (userArr.includes(user)) {
+  } else {
+    userArr.push(user);
+  }
+
+  // div.setAttribute('id', 'array');
+
+  document.querySelector('.user-typing').innerHTML = `
+    <p class="text">${userArr
+      .map((user) => {
+        return `${user} ${
+          // Only include 'and' if array is larger than 2
+          userArr.length > 1
+            ? userArr.indexOf(user) == userArr.length - 2
+              ? 'and '
+              : ''
+            : ''
+        }`;
+      })
+      .join('')} ${userArr.length > 1 ? 'are' : 'is'} typing...</p>
   `;
 
-  document.querySelector('.user-typing').appendChild(div);
+  // document.querySelector('.user-typing').appendChild(div);
 });
 
 // Add room name to DOM

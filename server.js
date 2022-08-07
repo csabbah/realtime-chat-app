@@ -76,8 +76,10 @@ io.on('connection', (socket) => {
   socket.on('chatMessage', (msg) => {
     const user = getCurrentUser(socket.id);
     if (user) {
-      socket.broadcast.to(user.room).emit('userTyped', user.username);
+      // When a user sends a message, capture that message, their user name and...
       io.to(user.room).emit('message', formatMessage(user.username, msg));
+      // Also remove the 'is typing' element
+      socket.broadcast.to(user.room).emit('userTyped', user.username);
     }
   });
 
@@ -85,8 +87,10 @@ io.on('connection', (socket) => {
     const user = getCurrentUser(socket.id);
     if (user) {
       if (boolean) {
+        // If input is not empty, generate the 'is typing' element on the client side
         socket.broadcast.to(user.room).emit('typing', user.username);
       } else {
+        // If input is empty, emit userTyped which removes the 'is typing' element
         socket.broadcast.to(user.room).emit('userTyped', user.username);
       }
     }
