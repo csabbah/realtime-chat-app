@@ -37,6 +37,9 @@ chatForm.addEventListener('submit', (e) => {
 
 var fired = false;
 msgEl.addEventListener('keyup', (e) => {
+  if (e.code === 'Enter') {
+    msgEl.blur();
+  }
   // If msg input is empty, emit the typed which deletes the element (broadcasted  side)
   if (e.target.value.length < 1) {
     socket.emit('userTyping', false);
