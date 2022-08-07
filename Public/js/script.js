@@ -30,7 +30,7 @@ chatForm.addEventListener('submit', (e) => {
   // Clear inputs
   chatForm.reset();
   // Focus on the msg input right after
-  e.target.elements.msg.focus();
+  // e.target.elements.msg.focus();
   // Reset on keydown event
   fired = false;
 });
@@ -55,6 +55,11 @@ function outputMessage(object) {
   const div = document.createElement('div');
   div.classList.add('message');
 
+  // Add the username of the 'logged in' user (extracted form the URL)
+  div.setAttribute(
+    'id',
+    username == object.username ? 'currentUser' : 'notCurrentUser'
+  );
   div.innerHTML = `
    <p class="meta">${object.username}<span> ${object.time}</span></p>
     <p class="text">
@@ -67,7 +72,7 @@ function outputMessage(object) {
 
 // Message from server
 socket.on('message', (message) => {
-  outputMessage(message);
+  outputMessage(message, username.username);
 
   // Every time we get a message, scroll down
   const chatMessages = document.querySelector('.chat-messages');
@@ -136,7 +141,14 @@ function outputRoomName(room) {
 
 function outputUsers(users) {
   userList.innerHTML = `
-    ${users.map((user) => `<li>${user.username}</li>`).join('')}
+    ${users
+      .map(
+        (user) =>
+          `<li id='${user.username == username ? 'activeUser' : ''}'>${
+            user.username
+          } ${user.username == username ? '(You)' : ''}</li>`
+      )
+      .join('')}
     `;
   // Because we are mapping an array, we NEED to use the .join() method
 }
