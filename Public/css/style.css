@@ -58,13 +58,14 @@ a {
 }
 
 .chat-main {
-  height: 500px;
+  height: 90%;
   display: grid;
+  grid-template-rows: 100%;
   grid-template-columns: 1fr 3fr;
 }
 
 .chat-sidebar {
-  background: linear-gradient(var(--dark-color-a), transparent);
+  background: var(--dark-color-a);
   color: #fff;
   padding: 20px 20px 60px;
   overflow-y: scroll;
@@ -91,7 +92,7 @@ a {
 
 .chat-messages {
   padding: 30px;
-  max-height: 500px;
+  max-height: 80vh;
   overflow-y: scroll;
 }
 
@@ -205,8 +206,8 @@ a {
 }
 
 @media (max-width: 700px) {
-  .chat-main {
-    display: block;
+  .chat-messages {
+    width: 100vw;
   }
 
   .chat-sidebar {
