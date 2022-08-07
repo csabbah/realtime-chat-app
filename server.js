@@ -85,9 +85,9 @@ io.on('connection', (socket) => {
     const user = getCurrentUser(socket.id);
     if (user) {
       if (boolean) {
-        socket.broadcast.to(user.room).emit('userTyped', user.username);
-      } else {
         socket.broadcast.to(user.room).emit('typing', user.username);
+      } else {
+        socket.broadcast.to(user.room).emit('userTyped', user.username);
       }
     }
   });
