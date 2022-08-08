@@ -26,6 +26,7 @@ chatForm.addEventListener('submit', (e) => {
 
   // Emit message to server
   socket.emit('chatMessage', msg);
+  socket.emit('userTyping', false);
 
   // Clear inputs
   chatForm.reset();
@@ -37,18 +38,21 @@ chatForm.addEventListener('submit', (e) => {
 
 var fired = false;
 msgEl.addEventListener('keyup', (e) => {
+  // If Enter was hit, do not emit the userTyping because it is being from the submit event above
   if (e.code === 'Enter') {
     msgEl.blur();
-  }
-  // If msg input is empty, emit the typed which deletes the element (broadcasted  side)
-  if (e.target.value.length < 1) {
-    socket.emit('userTyping', false);
-    fired = false;
+    // Otherwise, emit userTyping below on keyup to ensure that it dynamically updates  as users type
   } else {
-    // else, emit the userTyping which displays the 'user is typing' el (ONCE)
-    if (!fired) {
-      socket.emit('userTyping', true);
-      fired = true;
+    // If msg input is empty, emit the typed which deletes the element (broadcasted  side)
+    if (e.target.value.length < 1) {
+      socket.emit('userTyping', false);
+      fired = false;
+    } else {
+      // else, emit the userTyping which displays the 'user is typing' el (ONCE)
+      if (!fired) {
+        socket.emit('userTyping', true);
+        fired = true;
+      }
     }
   }
 });
