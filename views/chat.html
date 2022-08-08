@@ -3,8 +3,119 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="stylesheet" href="./styles.css" />
     <title>Document</title>
   </head>
-  <body></body>
+  <body>
+    <section id="main-wrapper">
+      <header class="chat-header">
+        <div id="empty"></div>
+        <div class="chat-info">
+          <h4 id="room-name">Room 1</h4>
+          <ul id="users">
+            <li>Carlos</li>
+            <li>John</li>
+            <li>Margo</li>
+            <li>Margo...</li>
+          </ul>
+        </div>
+        <a href="/" class="btn" id="leave-room"
+          >Leave <br />
+          Room</a
+        >
+      </header>
+      <div class="chat-container">
+        <main class="chat-main">
+          <div class="chat-messages">
+            <div class="inner-message-container">
+              <div class="message" id="notCurrentUser">
+                <p class="meta">Carls</p>
+                <div id="msg-body">
+                  <p class="text">First Message</p>
+                  <span id="msg-time">4:00pm</span>
+                </div>
+              </div>
+              <div class="message" id="currentUser">
+                <p class="meta">Carls</p>
+                <div id="msg-body">
+                  <p class="text">Today is a great day!</p>
+                  <span id="msg-time">4:00pm</span>
+                </div>
+              </div>
+              <div class="message" id="notCurrentUser">
+                <p class="meta">Carls</p>
+                <div id="msg-body">
+                  <p class="text">Today is a great day!</p>
+                  <span id="msg-time">4:00pm</span>
+                </div>
+              </div>
+              <div class="message" id="currentUser">
+                <p class="meta">Carls</p>
+                <div id="msg-body">
+                  <p class="text">Today is a great day!</p>
+                  <span id="msg-time">4:00pm</span>
+                </div>
+              </div>
+              <div class="message" id="notCurrentUser">
+                <p class="meta">Carls</p>
+                <div id="msg-body">
+                  <p class="text">Today is a great day!</p>
+                  <span id="msg-time">4:00pm</span>
+                </div>
+              </div>
+              <div class="message" id="currentUser">
+                <p class="meta">Carls</p>
+                <div id="msg-body">
+                  <p class="text">Today is a great day!</p>
+                  <span id="msg-time">4:00pm</span>
+                </div>
+              </div>
+              <div class="message" id="notCurrentUser">
+                <p class="meta">Carls</p>
+                <div id="msg-body">
+                  <p class="text">Today is a great day!</p>
+                  <span id="msg-time">4:00pm</span>
+                </div>
+              </div>
+              <div class="message" id="currentUser">
+                <p class="meta">Carls</p>
+                <div id="msg-body">
+                  <p class="text">Today is a great day!</p>
+                  <span id="msg-time">4:00pm</span>
+                </div>
+              </div>
+              <div class="message" id="currentUser">
+                <p class="meta">Carls</p>
+                <div id="msg-body">
+                  <p class="text">Last message!</p>
+                  <span id="msg-time">4:00pm</span>
+                </div>
+              </div>
+            </div>
+            <div class="user-typing">
+              <p class="text">User is typing...</p>
+            </div>
+          </div>
+        </main>
+      </div>
+      <div class="chat-form-container">
+        <form id="chat-form">
+          <input
+            id="msg"
+            type="text"
+            placeholder="Enter Message"
+            required
+            autocomplete="off"
+          />
+          <button type="submit" class="btn submit-btn">
+            <i class="fas fa-paper-plane"></i> Send
+          </button>
+        </form>
+      </div>
+    </section>
+  </body>
 </html>

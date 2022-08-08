@@ -68,10 +68,11 @@ function outputMessage(object) {
     username == object.username ? 'currentUser' : 'notCurrentUser'
   );
   div.innerHTML = `
-   <p class="meta">${object.username}<span> ${object.time}</span></p>
-    <p class="text">
-    ${object.text}
-    </p>
+  <p class="meta">${object.username}</p>
+  <div id="msg-body">
+  <p class="text">${object.text}</p>
+  <span id="msg-time"> ${object.time}</span>
+  </div>
   `;
 
   document.querySelector('.inner-message-container').appendChild(div);
