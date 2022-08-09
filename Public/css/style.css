@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'PoppinsHeader';
-  src: url('../public/Fonts/Poppins/Poppins-Bold.ttf');
+  src: url('./Fonts/Poppins/Poppins-Bold.ttf');
 }
 @font-face {
   font-family: 'PoppinsBody';
-  src: url('../public/Fonts/Poppins/Poppins-Medium.ttf');
+  src: url('./Fonts/Poppins/Poppins-Medium.ttf');
 }
 
 body {
@@ -61,7 +61,6 @@ textarea::placeholder {
   opacity: 0.8;
 }
 
-input,
 textarea,
 select {
   font-size: 18px;
@@ -72,6 +71,17 @@ select {
   border: none;
   border-radius: 8px;
 }
+
+input {
+  font-size: 18px;
+  resize: none;
+  color: black;
+  width: 80vw;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 50px;
+}
+
 input,
 textarea {
   background-color: rgba(0, 0, 0, 0.1);
@@ -103,9 +113,9 @@ button {
   box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.1);
 }
 
-/* #main-wrapper {
-  overflow: hidden;
-} */
+.join-container h1 {
+  font-size: 50px;
+}
 /* ------------- Homepage CSS */
 
 .join-container {
@@ -130,7 +140,7 @@ button {
 }
 
 .form-control select {
-  margin: 10px 0;
+  margin: 13px 0;
 }
 
 /* ------------- Chat page CSS */
@@ -265,14 +275,16 @@ button {
 .submit-btn {
   background-color: rgb(0, 162, 255);
   color: white;
-  padding: 11px 17px;
+  border-radius: 100px;
+  padding: 10px 15px;
+  margin-left: 5px;
+}
+.join-chat {
+  font-size: 18px;
+  padding: 12px 20px;
 }
 
 @media (max-width: 700px) {
-  .submit-btn {
-    padding: 7px 15px;
-  }
-
   #empty {
     display: none;
   }
@@ -281,13 +293,13 @@ button {
   }
 
   input {
-    font-size: 14px;
+    font-size: 15px;
     resize: none;
     color: black;
     width: 80vw;
-    padding: 10px 10px;
+    padding: 10px 18px;
     border: none;
-    border-radius: 8px;
+    border-radius: 50px;
   }
 
   button {
