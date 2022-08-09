@@ -9,7 +9,6 @@
 
 body {
   height: 100vh;
-  background-color: rgb(200, 208, 225);
 }
 
 .join-container {
@@ -137,9 +136,9 @@ button {
 /* ------------- Chat page CSS */
 
 .chat-container {
-  padding: 75px 0;
-  color: white;
+  background-color: rgb(200, 208, 225);
   height: 100%;
+  color: white;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -194,9 +193,10 @@ button {
 }
 
 .chat-main {
+  background-color: rgb(200, 208, 225);
   width: 60vw;
-  padding: 0 10px;
-  padding-bottom: 60px;
+  padding: 78px 10px;
+  padding-bottom: 59px;
 }
 
 .message {

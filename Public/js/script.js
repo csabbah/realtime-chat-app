@@ -153,7 +153,7 @@ function outputUsers(users) {
         (user) =>
           `<li id='${user.username == username ? 'activeUser' : ''}'>${
             user.username
-          } ${user.username == username ? '(You)' : ''}</li>`
+          }</li>`
       )
       .join('')}
     `;
