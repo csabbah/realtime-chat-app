@@ -61,14 +61,13 @@ msgEl.addEventListener('keyup', (e) => {
 function outputMessage(object) {
   const div = document.createElement('div');
   div.classList.add('message');
-
   // Add the username of the 'logged in' user (extracted form the URL)
   div.setAttribute(
     'id',
     username == object.username ? 'currentUser' : 'notCurrentUser'
   );
   div.innerHTML = `
-  <p class="meta">${object.username}</p>
+  <p class="meta" style='color:hsl(${object.colorNum}, 100%, 50%)' >${object.username}</p>
   <div id="msg-body">
   <p class="text">${object.text}</p>
   <span id="msg-time"> ${object.time}</span>
@@ -80,7 +79,7 @@ function outputMessage(object) {
 
 // Message from server
 socket.on('message', (message) => {
-  outputMessage(message, username.username);
+  outputMessage(message);
 
   // Every time we get a message, scroll down
   const chatMessages = document.querySelector('.chat-messages');
@@ -101,7 +100,7 @@ socket.on('userTyped', (user) => {
   } else {
     // Otherwise, update the element according to the arrays current state of data
     document.querySelector('.user-typing').innerHTML = `
-          <p class="text">${userArr
+          <p class="text isTyping">${userArr
             .map((user) => {
               return `${user} ${
                 // Only include 'and' if array is larger than 2
@@ -127,7 +126,7 @@ socket.on('typing', (user) => {
 
   // Dynamically update the DOM as new users are added to the array
   document.querySelector('.user-typing').innerHTML = `
-    <p class="text">${userArr
+    <p class="text isTyping">${userArr
       .map((user) => {
         return `${user} ${
           // Only include 'and' if array is larger than 2

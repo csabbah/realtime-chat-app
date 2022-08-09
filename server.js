@@ -31,8 +31,11 @@ app.use(express.static(path.join(__dirname, 'Public')));
 // Run when client connects
 io.on('connection', (socket) => {
   socket.on('joinRoom', ({ username, room }) => {
+    let colorNum = Math.ceil(Math.random(0) * 200);
+
     // We pass the id from the socket so it's unique to each user
-    const user = userJoin(socket.id, username, room);
+    // Here we essentially create the user object that contains info about the user
+    const user = userJoin(socket.id, username, room, colorNum);
 
     socket.join(user.room);
 
@@ -53,7 +56,10 @@ io.on('connection', (socket) => {
       .to(user.room)
       .emit(
         'message',
-        formatMessage(botName, `A ${user.username} has joined the chat`)
+        formatMessage(
+          botName,
+          `A <span style='color:hsl(${user.colorNum}, 100%, 50%)'>${user.username}</span> has joined the chat`
+        )
       );
 
     // Send active users and room info
@@ -75,9 +81,13 @@ io.on('connection', (socket) => {
   // Here are the events to be fired off when client side emits to the sever
   socket.on('chatMessage', (msg) => {
     const user = getCurrentUser(socket.id);
+
     if (user) {
       // When a user sends a message, capture that message, their user name and...
-      io.to(user.room).emit('message', formatMessage(user.username, msg));
+      io.to(user.room).emit(
+        'message',
+        formatMessage(user.username, msg, user.colorNum)
+      );
     }
   });
 
