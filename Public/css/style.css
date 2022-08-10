@@ -281,7 +281,7 @@ select:active {
   opacity: 0.6;
   color: black;
   position: relative;
-  top: 4spx;
+  top: 4px;
 }
 
 #chat-form {
