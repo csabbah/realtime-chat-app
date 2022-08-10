@@ -2,6 +2,7 @@ const chatForm = document.getElementById('chat-form');
 const roomName = document.getElementById('room-name');
 const userList = document.getElementById('users');
 const msgEl = document.getElementById('msg');
+scrollBottomBtn = document.querySelector('.scrollBottom');
 
 // We have access to io() because of this in chat.html:
 // <script src="/socket.io/socket.io.js"></script>
@@ -59,6 +60,13 @@ msgEl.addEventListener('keyup', (e) => {
 
 // Update dom element with message
 function outputMessage(user) {
+  // If there are over 10 messages, display the scroll
+  if (
+    document.querySelector('.inner-message-container').childNodes.length > 10
+  ) {
+    scrollBottomBtn.classList.add('active');
+  }
+
   const div = document.createElement('div');
   div.classList.add('message');
   // Add the username of the 'logged in' user (extracted form the URL)
@@ -164,4 +172,44 @@ function outputUsers(users) {
 socket.on('roomInfo', ({ room, users }) => {
   outputRoomName(room);
   outputUsers(users);
+});
+
+// On initial app load, scroll to top
+window.onbeforeunload = function () {
+  window.scrollTo(0, 0);
+};
+
+window.onscroll = function () {
+  scrollFunction();
+};
+
+function scrollFunction() {
+  if (
+    document.body.scrollHeight - document.body.scrollTop ===
+    document.body.clientHeight
+  ) {
+    scrollBottomBtn.classList.remove('active');
+  }
+
+  // To be used later to add a scroll to top button?
+  // if (
+  //   document.body.scrollTop > 100 ||
+  //   document.documentElement.scrollTop > 100
+  // ) {
+  //   scrollBottomBtn.classList.add('active');
+  // } else {
+  //   scrollBottomBtn.classList.remove('active');
+  // }
+}
+
+function scrollBottom() {
+  document.body.scrollTo({
+    left: 0,
+    top: document.body.scrollHeight,
+    behavior: 'smooth',
+  });
+}
+scrollBottomBtn.addEventListener('click', () => {
+  scrollBottomBtn.classList.remove('active');
+  scrollBottom();
 });

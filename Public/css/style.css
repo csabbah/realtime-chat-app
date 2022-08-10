@@ -172,6 +172,29 @@ select:active {
   align-items: center;
 }
 
+.scrollBottom {
+  opacity: 0;
+  pointer-events: none;
+  color: white;
+  position: fixed;
+  right: 0;
+  bottom: 90px;
+  background-color: rgb(0, 162, 255);
+  padding: 11px 14px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.05);
+  transition: 0.4s all ease-in-out;
+}
+
+.scrollBottom.active {
+  pointer-events: all;
+  opacity: 1;
+  position: fixed;
+  right: 25px;
+  bottom: 90px;
+  transition: 0.4s all ease-in-out;
+}
+
 .chat-header {
   display: flex;
   flex-direction: row-reverse;
