@@ -1,4 +1,11 @@
 <link rel='stylesheet' href='./css/style.css' />
+<link
+  rel='stylesheet'
+  href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css'
+  integrity='sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=='
+  crossorigin='anonymous'
+  referrerpolicy='no-referrer'
+/>
 <section id='main-wrapper'>
   <header class='chat-header'>
     <div id='empty'></div>
@@ -8,9 +15,8 @@
 
       </ul>
     </div>
-    <a href='/' class='btn' id='leave-room'>Leave
-      <br />
-      Room</a>
+    <a href='/' class='btn' id='leave-room'>
+      <i class='fa-solid fa-arrow-right-from-bracket' id='leave-icon'></i></a>
   </header>
   <div class='chat-container'>
     <main class='chat-main'>
@@ -28,12 +34,11 @@
         id='msg'
         type='text'
         placeholder='Enter Message'
-        required
+        required='true'
         autocomplete='off'
       />
       <button type='submit' class='btn submit-btn'>
-        <i class='fas fa-paper-plane'></i>
-        Send
+        <i class='fa-solid fa-paper-plane'></i>
       </button>
     </form>
   </div>

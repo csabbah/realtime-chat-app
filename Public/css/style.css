@@ -113,6 +113,15 @@ button {
   box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.1);
 }
 
+button:hover,
+select:hover {
+  transform: scale(0.98);
+}
+button:active,
+select:active {
+  transform: scale(0.96);
+}
+
 .join-container h1 {
   font-size: 50px;
 }
@@ -187,6 +196,11 @@ button {
   line-height: 1.2;
 }
 
+#leave-icon {
+  transform: scaleX(-1);
+  font-size: 25px;
+}
+
 .chat-info {
   display: flex;
   flex-direction: column;
@@ -242,6 +256,9 @@ button {
 /* #notCurrentUser .meta {
   color: red;
 } */
+.meta {
+  font-weight: 600;
+}
 
 #currentUser {
   background-color: rgb(255, 255, 255);
@@ -263,6 +280,8 @@ button {
   margin-left: 15px;
   opacity: 0.6;
   color: black;
+  position: relative;
+  top: 4spx;
 }
 
 #chat-form {
@@ -288,6 +307,11 @@ button {
   padding: 10px 15px;
   margin-left: 5px;
 }
+.submit-btn img {
+  width: 20px;
+  filter: invert(1);
+}
+
 .join-chat {
   font-size: 18px;
   padding: 10px 20px;
