@@ -32,7 +32,7 @@ chatForm.addEventListener('submit', (e) => {
   // Clear inputs
   chatForm.reset();
   // Focus on the msg input right after
-  // e.target.elements.msg.focus();
+  e.target.elements.msg.focus();
   // Reset on keydown event
   fired = false;
 });
