@@ -15,7 +15,7 @@
 
 ## Description
 
-This application allows users to chat with other users across multiple rooms using Socket.io. With multiple util functions, plain JS and io events, realtime updates are made to the DOM to ensure the most optimal chatting experience. Some events include broadcasting to all users when a user enters or disconnects from the app (specific to the chosen room) as well as being able to view which user sent which message along with a timestamp.
+This application allows users to chat with other users across multiple rooms using Socket.io. With multiple util functions, plain JS and io events, realtime updates are made to the DOM to ensure the most optimal chatting experience. Some events include being able to see which user or users are typing (live), a scroll to bottom button (that appears when new messages are sent), broadcasting to all users when a user enters or disconnects from the app and more.
 
 ## Installation
 
