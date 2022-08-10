@@ -58,19 +58,19 @@ msgEl.addEventListener('keyup', (e) => {
 });
 
 // Update dom element with message
-function outputMessage(object) {
+function outputMessage(user) {
   const div = document.createElement('div');
   div.classList.add('message');
   // Add the username of the 'logged in' user (extracted form the URL)
   div.setAttribute(
     'id',
-    username == object.username ? 'currentUser' : 'notCurrentUser'
+    username == user.username ? 'currentUser' : 'notCurrentUser'
   );
   div.innerHTML = `
-  <p class="meta" style='color:hsl(${object.colorNum}, 100%, 50%)' >${object.username}</p>
+  <p class="meta" style='color:hsl(${user.colorNum}, 100%, 50%)' >${user.username}</p>
   <div id="msg-body">
-  <p class="text">${object.text}</p>
-  <span id="msg-time"> ${object.time}</span>
+  <p class="text">${user.text}</p>
+  <span id="msg-time"> ${user.time}</span>
   </div>
   `;
 
@@ -78,8 +78,8 @@ function outputMessage(object) {
 }
 
 // Message from server
-socket.on('message', (message) => {
-  outputMessage(message);
+socket.on('message', (user) => {
+  outputMessage(user);
 
   // Every time we get a message, scroll down
   const chatMessages = document.querySelector('.chat-messages');
