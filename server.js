@@ -44,13 +44,6 @@ io.on('connection', (socket) => {
     // socket.emit('object', { welcome: 'Welcome to ChatCord' });
     socket.emit('message', formatMessage(botName, `Welcome to ChatCord`));
 
-    // Broadcast when a user connects (GENERAL NOT ROOM SPECIFIC)
-    // broadcast.emit() will emit to everyone EXCEPT for the person connecting
-    // socket.broadcast.emit(
-    //   'message',
-    //   formatMessage(botName, 'A user has joined the chat')
-    // );
-
     // Broadcast when a user connects (TO A SPECIFIC ROOM)
     socket.broadcast
       .to(user.room)
@@ -69,14 +62,8 @@ io.on('connection', (socket) => {
     });
   });
 
-  // We log the message in the backend
-  //   console.log('New WS connection...');
-
   // Here are the events to be fired off on the client side
   const botName = 'ChatCord Bot';
-
-  // io.emit() will emit to EVERYONE
-  // io.emit();
 
   // Here are the events to be fired off when client side emits to the sever
   socket.on('chatMessage', (msg) => {
