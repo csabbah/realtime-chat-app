@@ -185,14 +185,17 @@ window.onscroll = function () {
 };
 
 function scrollFunction() {
+  // If a user is NOT at the bottom of the messages, display the scroll to bottom button
   if (
-    document.body.scrollHeight - document.body.scrollTop ===
-    document.body.clientHeight
+    Math.ceil(document.body.scrollHeight - document.body.scrollTop) !==
+    Math.ceil(document.body.clientHeight)
   ) {
+    scrollBottomBtn.classList.add('active');
+  } else {
+    // else, if they are at the bottom of the messages container, hide the button
     scrollBottomBtn.classList.remove('active');
   }
 
-  // To be used later to add a scroll to top button?
   // if (
   //   document.body.scrollTop > 100 ||
   //   document.documentElement.scrollTop > 100
