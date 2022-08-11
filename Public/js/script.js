@@ -41,7 +41,7 @@ var fired = false;
 msgEl.addEventListener('keyup', (e) => {
   // If Enter was hit, do not emit the userTyping because it is being emitted from the submit event above
   if (e.code === 'Enter') {
-    msgEl.blur();
+    msgEl.focus();
     // Otherwise, emit userTyping below on keyup to ensure that it dynamically updates as users are type
   } else {
     // If msg input is empty, emit the typed which deletes the element (broadcasted  side)
