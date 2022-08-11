@@ -88,6 +88,7 @@ io.on('connection', (socket) => {
         'message',
         formatMessage(user.username, msg, user.colorNum)
       );
+      socket.broadcast.to(user.room).emit('typing', user.username);
     }
   });
 
