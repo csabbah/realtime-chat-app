@@ -158,31 +158,31 @@ function outputRoomName(room) {
 
 function outputUsers(users) {
   // Reset before updating with new list of users
-  userList.innerHTML = '';
+  if (userList.childNodes.length >= 1) {
+    userList.innerHTML = '';
+  }
 
   users.map((user, index) => {
-    const li = document.createElement('li');
-
-    li.innerText = `${user.username}${
-      // Only include 'and' to the 2nd last name
-      users.length > 1
-        ? users.indexOf(user) == users.length - 2
-          ? ` and `
-          : // add a comma in between names (starting at when a 3rd user is added and beyond)
-          users.indexOf(user) !== users.length - 1
-          ? `,`
-          : ''
-        : ''
-    }`;
-
-    // If users start passing 5, do not include them, instead, add '...' as seen above
+    // If users start passing 4, do not include them, instead, add '...' as seen above
     if (index < 4) {
+      const li = document.createElement('li');
+
+      li.innerText = `${user.username}${
+        // Only include 'and' to the 2nd last name
+        users.length > 1
+          ? users.indexOf(user) == users.length - 2
+            ? ` and `
+            : // add a comma in between names (starting at when a 3rd user is added and beyond)
+            users.indexOf(user) !== users.length - 1
+            ? `,`
+            : ''
+          : ''
+      }`;
       document.getElementById('users').appendChild(li);
     }
 
     if (index == 4) {
-      const li = document.createElement('div');
-      li.setAttribute('id', 'moreUsers');
+      const li = document.createElement('li');
       li.innerText = '...';
       document.getElementById('users').appendChild(li);
     }
