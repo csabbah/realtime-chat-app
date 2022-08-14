@@ -63,7 +63,7 @@ msgEl.addEventListener('keyup', (e) => {
 function outputMessage(user) {
   // If there are over 10 messages, display the scroll
   if (
-    document.querySelector('.inner-message-container').childNodes.length > 10
+    document.querySelector('.inner-message-container').childNodes.length >= 9
   ) {
     scrollBottomBtn.classList.add('active');
   }
@@ -205,10 +205,11 @@ window.onscroll = function () {
 };
 
 function scrollFunction() {
-  // If a user is NOT at the bottom of the messages, display the scroll to bottom button
+  // If a user is NOT at the bottom of the messages AND there are at least 9 messages, display the scroll to bottom button
   if (
+    document.querySelector('.inner-message-container').childNodes.length >= 9 &&
     Math.ceil(document.body.scrollHeight - document.body.scrollTop) !==
-    Math.ceil(document.body.clientHeight)
+      Math.ceil(document.body.clientHeight)
   ) {
     scrollBottomBtn.classList.add('active');
   } else {
