@@ -42,7 +42,7 @@ npm run dev
 
 ## Links
 
-[Link to live application](https://pacific-journey-86353.herokuapp.com/)
+[Link to live application](https://cs-realtime-chatapp.herokuapp.com/)
 
 ## Built With
 
